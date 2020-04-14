@@ -5,7 +5,7 @@ ENV COMPOSER_HOME=/usr/local/bin/composer
 ENV WEB_DOCUMENT_ROOT=/var/www/html
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends socat git-all libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev \
+    && apt-get install -y --no-install-recommends socat git-all libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev jpegoptim imagemagick optipng pngcrush libjpeg-progs \
     && rm -rf /var/lib/apt/lists/* \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -31,6 +31,12 @@ RUN curl -fsSL 'https://downloads.ioncube.com/loader_downloads/ioncube_loaders_l
     && docker-php-ext-enable ioncube_loader_lin_7.3
     #&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# install png out
+RUN curl -fsSL http://static.jonof.id.au/dl/kenutils/pngout-20150319-linux.tar.gz -o pngout-20150319-linux.tar.gz \
+        && tar -xf pngout-20150319-linux.tar.gz \
+        && rm pngout-20150319-linux.tar.gz \
+        && cp pngout-20150319-linux/x86_64/pngout /bin/pngout \
+        && rm -rf pngout-20150319-linux
 COPY php-config.ini "$PHP_INI_DIR/conf.d/shopware.ini"
 COPY opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
 #COPY xdebug.ini /usr/local/etc/php/conf.d/
