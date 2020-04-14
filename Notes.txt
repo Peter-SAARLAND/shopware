@@ -1,0 +1,6 @@
+Notes.txt
+
+
+DOCKER_HOST=ssh://root@webzwonull.rietmann.it docker-compose up --build
+ 
+

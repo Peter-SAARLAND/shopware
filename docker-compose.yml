@@ -1,0 +1,65 @@
+version: '3.7' 
+
+services:
+    shopware-db:
+        build: docker/mysql
+        restart: unless-stopped
+        volumes:
+            - shopware-db:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: shopware
+            MYSQL_PASSWORD: shopware
+            MYSQL_DATABASE: shopware
+        networks:
+            - shopware
+    
+    shopware-app:
+        build: docker/php7
+        restart: unless-stopped
+        environment:
+            TERM: xterm
+            COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
+            SHOPWARE_ENV: production
+        volumes:
+            - shopware-app:/var/www/html
+            - shopware-composer-cache:/var/www/composer-cache-dir:Z
+            - shopware-data:/project:Z
+        links:
+        - shopware-db:db
+        ports:
+        - "8080:80"
+        networks:
+            - shopware
+
+    # shopware-elasticsearch:
+    #     build: docker/elasticsearch
+    #     volumes:
+    #         - shopware-eleasticsearch:/usr/share/elasticsearch/data:Z
+    #     ports:
+    #         - "9200:9200"
+    #         - "9300:9300"
+    #     environment:
+    #         TERM: xterm
+    #         ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    #     networks:
+    #         - shopware
+
+    shopware-redis:
+        image: redis:latest
+        restart: unless-stopped
+        volumes:
+            - shopware-redis:/data:Z
+        networks:
+            - shopware
+
+volumes:
+    shopware-db:
+    shopware-app:
+    shopware-eleasticsearch:
+    shopware-composer-cache:
+    shopware-data:
+    shopware-redis:
+
+networks:
+    shopware:
