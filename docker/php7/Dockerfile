@@ -15,7 +15,7 @@ RUN apt-get update \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) intl \ 
     && docker-php-ext-install -j$(nproc) xmlrpc \ 
-    && docker-php-ext-install -j$(nproc) gd \ 
+    && docker-php-ext-install -j$(nproc) gd --with-freetype --with-jpeg \ 
     && docker-php-ext-install -j$(nproc) opcache \ 
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
