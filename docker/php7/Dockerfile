@@ -20,6 +20,8 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) opcache \ 
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
+    && pecl install apcu \
+    && docker-php-ext-enable apcu \
     && a2enmod rewrite
 
 

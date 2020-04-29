@@ -6,11 +6,14 @@ services:
         restart: unless-stopped
         volumes:
             - shopware-db:/var/lib/mysql
+            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_USER: shopware
             MYSQL_PASSWORD: shopware
             MYSQL_DATABASE: shopware
+            TIMEZONE: Europe/Berlin
         networks:
             - shopware
     
@@ -21,10 +24,13 @@ services:
             TERM: xterm
             COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
             SHOPWARE_ENV: production
+            TIMEZONE: Europe/Berlin
         volumes:
             - shopware-app:/var/www/html
             - shopware-composer-cache:/var/www/composer-cache-dir:Z
             - shopware-data:/project:Z
+            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
         links:
         - shopware-db:db
         ports:
