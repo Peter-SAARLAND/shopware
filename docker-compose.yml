@@ -3,6 +3,7 @@ version: '3.7'
 services:
     shopware-db:
         build: docker/mysql
+        image: registry.gitlab.com/peter.saarland/shopware/mysql:latest
         restart: unless-stopped
         volumes:
             - shopware-db:/var/lib/mysql
@@ -19,6 +20,7 @@ services:
     
     shopware-app:
         build: docker/php7
+        image: registry.gitlab.com/peter.saarland/shopware/php7:latest
         restart: unless-stopped
         environment:
             TERM: xterm
