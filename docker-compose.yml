@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
     shopware-db:
-        build: docker/mysql
+        #build: docker/mysql
         image: registry.gitlab.com/peter.saarland/shopware/mysql:latest
         restart: unless-stopped
         volumes:
@@ -19,7 +19,7 @@ services:
             - shopware
     
     shopware-app:
-        build: docker/php7
+        #build: docker/php7
         image: registry.gitlab.com/peter.saarland/shopware/php7:latest
         restart: unless-stopped
         environment:
