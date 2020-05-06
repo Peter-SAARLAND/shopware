@@ -63,6 +63,17 @@ build mysql:
 # include:
 #   - template: SAST.gitlab-ci.yml
 
+test shopware:
+  stage: test
+  image: docker/compose
+  variables:
+    TRAEFIK_DOMAIN: traefik.127.0.0.1.xip.io
+    APP_DOMAINS: shopware.127.0.0.1.xip.io
+  services:
+    - docker:19.03.8-dind
+  script:
+    - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
+
 publish php7:
   stage: release
   image: docker:19.03.8
