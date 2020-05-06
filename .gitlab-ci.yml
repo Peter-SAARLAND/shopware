@@ -76,7 +76,7 @@ test shopware:
     - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
     - sleep 120
     - docker ps -a
-    - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml logs traefik --tail 200
+    - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml logs --tail 200 traefik
     - curl -fsSL http://traefik.127.0.0.1.xip.io
 
 publish php7:
