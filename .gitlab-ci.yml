@@ -72,7 +72,7 @@ test shopware:
   services:
     - docker:19.03.8-dind
   script:
-    - apk ad curl
+    - apk add curl
     - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
     - curl -fsSL http://traefik.127.0.0.1.xip.io
 
