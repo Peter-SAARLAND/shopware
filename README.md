@@ -14,6 +14,9 @@ Additional Links:
 - [dash1](https://gitlab.com/peter.saarland/dash1/) - Virtual Infrastructure for Zero
 - [lake0](https://gitlab.com/peter.saarland/lake0/) - Container-native Backups
 
+## Prerequisites
+
+* Docker Compose v1.25.5 required
 
 ## Get Started
 
@@ -27,26 +30,31 @@ First, rename `.env.example` and adjust your settings.
 ### Development
 
 ```
-docker-compose up -d
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 This starts Shopware and the DB on http://localhost:8080
 
-### Production (existing Traefik)
+### Use with existing Traefik
+
+Set the following values in `.env `:
+
+- `TRAEFIK_NETWORK` (defaults to `web`)
+- `TRAEFIK_DOMAIN` (defaults to `traefik.127.0.0.1.xip.io`)
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.domain.yml up -d
 ```
 
-Access on http://localhost:8080 to start the installer.
+Access on http://localhost to start the installer.
 
-### Production (included Traefik)
+### Use with included Traefik
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
 ```
 
-Access on http://localhost:8080 to start the installer.
+Access on http://localhost to start the installer.
 
 ## Debugging
 If you need to Debug Shopware, add this to `config_production.php` inside the `shopware-app` container:

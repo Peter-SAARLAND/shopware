@@ -1,17 +1,18 @@
-version: '3.7'
-shopware-app:
-  ports:
-  labels:
-    - traefik.enable=true
-    - traefik.docker.network=web
-    - traefik.primawell.frontend.rule=Host:${APP_DOMAINS:-app.example.com}
-    - traefik.primawell.frontend.entryPoints=http,https
-    - traefik.primawell.frontend.headers.SSLRedirect=true
-    - traefik.primawellport=80
-  networks:
-    - shopware
-    - ${TRAEFIK_NETWORK}
+version: '3.8'
+services:
+  shopware-app:
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-web}
+      - traefik.primawell.frontend.rule=Host:${APP_DOMAINS:-shopware.127.0.0.1.xip.io}
+      - traefik.primawell.frontend.entryPoints=http,https
+      - traefik.primawell.frontend.headers.SSLRedirect=true
+      - traefik.primawellport=80
+    networks:
+      - shopware
+      - web
 
 networks:
   shopware:
-  ${TRAEFIK_NETWORK}:
+  web:
+    name: ${TRAEFIK_NETWORK:-web}

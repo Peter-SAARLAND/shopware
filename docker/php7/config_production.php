@@ -1,9 +1,6 @@
 <?php return array (
-    'httpcache' => array(
-        'enabled' => false,
-    ),
+    'httpcache' => array('enabled' => true),
     'trustedProxies' => array(
-        '127.0.0.1',
         '172.16.238.10'
     ),
     'db' => [

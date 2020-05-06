@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   traefik:
@@ -22,8 +22,7 @@ services:
       --accessLog
       --api
     networks:
-      - web:
-          ipv4_address: 172.16.238.10
+      shopware:
     ports:
       - 80:80
       - 443:443
@@ -31,7 +30,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik:/etc/traefik
     labels:
-      - traefik.frontend.rule=Host:${TRAEFIK_DOMAIN:-traefik.example.com}
+      - traefik.frontend.rule=Host:${TRAEFIK_DOMAIN:-traefik.127.0.0.1.xip.io}
       - traefik.enable=true
       - traefik.port=8080
       - traefik.docker.network=web
@@ -39,11 +38,7 @@ services:
       - traefik.frontend.headers.SSLRedirect=true
 
 networks:
-  web:
-    ipam:
-      driver: default
-      config:
-        - subnet: "172.16.238.0/24"
+  shopware:
 
 volumes:
     traefik:   

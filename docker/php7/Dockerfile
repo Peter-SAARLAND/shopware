@@ -5,7 +5,7 @@ ENV COMPOSER_HOME=/usr/local/bin/composer
 ENV WEB_DOCUMENT_ROOT=/var/www/html
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends socat git-all libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev jpegoptim imagemagick optipng pngcrush libjpeg-progs libwebp-dev libjpeg62-turbo-dev libfreetype6-dev \
+    && apt-get install -y --no-install-recommends socat git-all libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev jpegoptim imagemagick optipng pngcrush libjpeg-progs libwebp-dev libjpeg62-turbo-dev libfreetype6-dev dnsutils \
     && rm -rf /var/lib/apt/lists/* \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -44,11 +44,16 @@ COPY php-config.ini "$PHP_INI_DIR/conf.d/shopware.ini"
 COPY opcache.ini "$PHP_INI_DIR/conf.d/opcache.ini"
 #COPY xdebug.ini /usr/local/etc/php/conf.d/
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
-RUN mkdir -p /usr/share/man/man1
+RUN chmod +x /docker-entrypoint.sh \
+    && mkdir -p /usr/share/man/man1
 
 WORKDIR /var/www/html
 
 RUN rm -rf * \
     && curl -fsSL http://releases.s3.shopware.com/Downloader/index.php -o index.php
 COPY config_production.php /var/www/html/config_production.php
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
