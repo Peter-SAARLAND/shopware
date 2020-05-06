@@ -1,0 +1,10 @@
+version: '3.8' 
+
+services:
+  shopware-db:
+      build: docker/mysql
+    
+  shopware-app:
+      build: docker/php7
+      ports:
+        - "8080:80"
