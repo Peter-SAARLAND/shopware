@@ -1,5 +1,4 @@
-shopware
-===
+# shopware
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![pipeline status](https://gitlab.com/peter.saarland/zero/badges/master/pipeline.svg)](https://gitlab.com/peter.saarland/zero/-/commits/master)
 
@@ -16,11 +15,11 @@ Additional Links:
 
 ## Prerequisites
 
-* Docker Compose v1.25.5 required
+- Docker Compose v1.25.5 required
 
 ## Get Started
 
-```
+```bash
 git clone https://gitlab.com/peter.saarland/shopware/
 cd shopware
 ```
@@ -29,7 +28,7 @@ First, rename `.env.example` and adjust your settings.
 
 ### Development
 
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
@@ -42,7 +41,7 @@ Set the following values in `.env `:
 - `TRAEFIK_NETWORK` (defaults to `web`)
 - `TRAEFIK_DOMAIN` (defaults to `traefik.127.0.0.1.xip.io`)
 
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose.domain.yml up -d
 ```
 
@@ -50,16 +49,17 @@ Access on http://localhost to start the installer.
 
 ### Use with included Traefik
 
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
 ```
 
 Access on http://localhost to start the installer.
 
 ## Debugging
+
 If you need to Debug Shopware, add this to `config_production.php` inside the `shopware-app` container:
 
-```
+```php
 'front' => [
     'showException' => true
 ],
@@ -69,4 +69,5 @@ If you need to Debug Shopware, add this to `config_production.php` inside the `s
 ```
 
 ## Resources
+
 - https://github.com/shopwareLabs/shopware-docker
