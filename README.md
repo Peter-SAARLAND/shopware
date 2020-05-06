@@ -16,20 +16,37 @@ Additional Links:
 
 
 ## Get Started
+
 ```
 git clone https://gitlab.com/peter.saarland/shopware/
 cd shopware
+```
+
+First, rename `.env.example` and adjust your settings.
+
+### Development
+
+```
 docker-compose up -d
 ```
 
-### With Traefik
+This starts Shopware and the DB on http://localhost:8080
 
-Update `docker-compose.domain.yml` and  `docker-compose.traefik.yml` with the necessary values, then: 
+### Production (existing Traefik)
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.domain.yml up -d
+```
+
+Access on http://localhost:8080 to start the installer.
+
+### Production (included Traefik)
+
 ```
 docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
 ```
 
-Access on `http://localhost:8080` to start the installer.
+Access on http://localhost:8080 to start the installer.
 
 ## Debugging
 If you need to Debug Shopware, add this to `config_production.php` inside the `shopware-app` container:

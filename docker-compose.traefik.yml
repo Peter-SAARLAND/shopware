@@ -12,7 +12,7 @@ services:
       --entrypoints='Name:http Address::80 Compress:true'
       --entrypoints='Name:https Address::443 TLS Compress:true'
       --acme
-      --acme.email=le@example.com
+      --acme.email=${LETSENCRYPT_EMAIL:-le@example.com}
       --acme.storage="/etc/traefik/acme.json"
       --acme.entryPoint=https
       --acme.httpChallenge.entryPoint=http
@@ -31,7 +31,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik:/etc/traefik
     labels:
-      - traefik.frontend.rule=Host:traefik.example.com
+      - traefik.frontend.rule=Host:${TRAEFIK_DOMAIN:-traefik.example.com}
       - traefik.enable=true
       - traefik.port=8080
       - traefik.docker.network=web
