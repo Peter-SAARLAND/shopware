@@ -1,0 +1,11 @@
+shopware-app:
+  labels:
+    - traefik.enable=true
+    - traefik.docker.network=web
+    - traefik.primawell.frontend.rule=Host:www.primawell.de,www.primawell.eu,www.primawell.ag,www.primawell.com
+    - traefik.primawell.frontend.entryPoints=http,https
+    - traefik.primawell.frontend.headers.SSLRedirect=true
+    - traefik.primawellport=80
+  networks:
+    - shopware
+    - web

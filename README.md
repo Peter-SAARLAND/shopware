@@ -22,6 +22,13 @@ cd shopware
 docker-compose up -d
 ```
 
+### With Traefik
+
+Update `docker-compose.domain.yml` and  `docker-compose.traefik.yml` with the necessary values, then: 
+```
+docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
+```
+
 Access on `http://localhost:8080` to start the installer.
 
 ## Debugging
