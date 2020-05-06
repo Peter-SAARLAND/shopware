@@ -73,11 +73,11 @@ test shopware:
     - docker:19.03.8-dind
   script:
     - apk add curl
-    - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
     - sleep 120
     - docker ps -a
-    - docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml logs --tail 200 traefik
-    - curl -fsSL http://traefik.127.0.0.1.xip.io
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs --tail 200
+    - curl -fsSL http://localhost:8080
 
 publish php7:
   stage: release
