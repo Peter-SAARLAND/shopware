@@ -78,6 +78,7 @@ test shopware:
     - docker ps -a
     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs --tail 200
     - curl -fsSL http://localhost:8080
+  allow_failure: true
 
 publish php7:
   stage: release
