@@ -1,8 +1,7 @@
-version: '3.8' 
+version: '3.7' 
 
 services:
     shopware-db:
-        #build: docker/mysql
         image: registry.gitlab.com/peter.saarland/shopware/mysql:latest
         restart: unless-stopped
         volumes:
@@ -17,7 +16,6 @@ services:
             - shopware
     
     shopware-app:
-        #build: docker/php7
         image: registry.gitlab.com/peter.saarland/shopware/php7:latest
         restart: unless-stopped
         environment:
@@ -25,6 +23,7 @@ services:
             COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
             SHOPWARE_ENV: production
             TIMEZONE: Europe/Berlin
+            TRAEFIK_ENABLED: ${TRAEFIK_ENABLED:-0}
         volumes:
             - shopware-app:/var/www/html
             - shopware-composer-cache:/var/www/composer-cache-dir:Z

@@ -6,11 +6,15 @@ if [ "${1#-}" != "$1" ]; then
 	set -- php "$@"
 fi
 
-if ["$TRAEFIK_ENABLED" != ""];
+echo "Checking Traefik"
+
+if [ "$TRAEFIK_ENABLED" != "0" ];
 then
+  echo "TRAEFIK Enabled!"
+
   # Get Traefik IP (if existing)
   TRAEFIK_IP=`dig +short $TRAEFIK_HOST | head -n 1`
-  
+
   if [ "$TRAEFIK_IP" != "" ]
   then
     export TRAEFIK_IP=$TRAEFIK_IP
@@ -20,4 +24,5 @@ then
     
   fi
 fi
+echo "TRAEFIK Disabled!"
 exec "$@"

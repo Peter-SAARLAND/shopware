@@ -57,3 +57,4 @@ RUN rm -rf * \
 COPY config_production.php /var/www/html/config_production.php
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
