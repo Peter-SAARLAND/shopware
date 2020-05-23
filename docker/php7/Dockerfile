@@ -48,7 +48,8 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
 RUN chmod +x /docker-entrypoint.sh \
-    && mkdir -p /usr/share/man/man1
+    && mkdir -p /usr/share/man/man1 \
+    && chmod 0755 /var/www/html -R
 
 WORKDIR /var/www/html
 

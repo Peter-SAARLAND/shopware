@@ -34,6 +34,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 This starts Shopware and the DB on http://localhost:8080
 
+
 ### Use with existing Traefik
 
 Set the following values in `.env `:
@@ -54,6 +55,12 @@ docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-com
 ```
 
 Access on http://localhost to start the installer.
+
+## SFTP
+
+```
+sftp -P 2222 shopware@$SHOPWARE_IP
+```
 
 ## Debugging
 
