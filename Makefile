@@ -1,13 +1,9 @@
 # import config.
 # You can change the default config with `make cnf="config_special.env" build`
-cnf ?= config.env
-include $(cnf)
-export $(shell sed 's/=.*//' $(cnf))
-
 # Lake0 config
-lake0 ?= lake0.env
-include $(lake0)
-export $(shell sed 's/=.*//' $(lake0))
+config ?= .env
+include $(config)
+export $(shell sed 's/=.*//' $(config))
 
 # grep the version from the mix file
 #VERSION=$(shell ./version.sh)
@@ -21,6 +17,9 @@ help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
+
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+APP_NAME ?= $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
 
 # DOCKER TASKS
 # Build the container

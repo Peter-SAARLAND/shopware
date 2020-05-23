@@ -1,29 +1,5 @@
 include:
-  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/version.gitlab-ci.yml'
-  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/release.gitlab-ci.yml'
-
-workflow:
-  rules:
-    - if: $CI_COMMIT_REF_NAME =~ /-wip$/
-      when: never
-    - if: $CI_MERGE_REQUEST_ID
-      when: never
-    - if: $CI_COMMIT_TAG
-      when: never
-    - when: always
-
-stages:
-  - version
-  - build
-  - test
-  - release
-  - deploy
-    
-cache:
-  key: "$CI_JOB_NAME"
-  
-variables:
-  DOCKER_TLS_CERTDIR: ""
+  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/default.gitlab-ci.yml'
 
 build php7:
   stage: build
@@ -81,7 +57,7 @@ test shopware:
   allow_failure: true
 
 publish php7:
-  stage: release
+  stage: ship
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
@@ -97,7 +73,7 @@ publish php7:
       when: on_success
 
 publish mysql:
-  stage: release
+  stage: ship
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
