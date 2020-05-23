@@ -57,7 +57,7 @@ test shopware:
   allow_failure: true
 
 publish php7:
-  stage: release
+  stage: ship
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
@@ -73,7 +73,7 @@ publish php7:
       when: on_success
 
 publish mysql:
-  stage: release
+  stage: ship
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
