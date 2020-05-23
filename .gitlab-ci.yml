@@ -1,6 +1,6 @@
 include:
-  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/version.gitlab-ci.yml'
-  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/release.gitlab-ci.yml'
+  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/generic/version.gitlab-ci.yml'
+  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/generic/release.gitlab-ci.yml'
 
 workflow:
   rules:
