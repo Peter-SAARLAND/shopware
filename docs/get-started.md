@@ -32,12 +32,11 @@ First, rename `.env.example` and adjust your settings.
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
-This starts Shopware and the DB on http://localhost:8080
-
+This starts Shopware and the DB on [localhost:8080](http://localhost:8080)
 
 ### Use with existing Traefik
 
-Set the following values in `.env `:
+Set the following values in `.env`:
 
 - `TRAEFIK_NETWORK` (defaults to `web`)
 - `TRAEFIK_DOMAIN` (defaults to `traefik.127.0.0.1.xip.io`)
@@ -46,7 +45,7 @@ Set the following values in `.env `:
 docker-compose -f docker-compose.yml -f docker-compose.domain.yml up -d
 ```
 
-Access on http://localhost to start the installer.
+Access on [localhost](http://localhost) to start the installer.
 
 ### Use with included Traefik
 
@@ -54,11 +53,11 @@ Access on http://localhost to start the installer.
 docker-compose -f docker-compose.yml -f docker-compose.traefik.yml -f docker-compose.domain.yml up -d
 ```
 
-Access on http://localhost to start the installer.
+Access on [localhost](http://localhost) to start the installer.
 
 ## SFTP
 
-```
+```bash
 sftp -P 2222 shopware@$SHOPWARE_IP
 ```
 
@@ -77,4 +76,4 @@ If you need to Debug Shopware, add this to `config_production.php` inside the `s
 
 ## Resources
 
-- https://github.com/shopwareLabs/shopware-docker
+- [1](https://github.com/shopwareLabs/shopware-docker)
