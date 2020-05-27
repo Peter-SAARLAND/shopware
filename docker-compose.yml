@@ -60,7 +60,7 @@ services:
         image: atmoz/sftp
         volumes:
             - shopware-app:/home/shopware/shopware-app
-        command: ${SHOPWARE_SFTP_USER:-shopware}:${SHOPWARE_SFTP_PASSWORD:-password}:1001
+        command: ${SHOPWARE_SFTP_USER:-shopware}:${SHOPWARE_SFTP_PASSWORD:-password}:33:33
         cap_add:
             - SYS_ADMIN
         ports:
