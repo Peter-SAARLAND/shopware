@@ -1,5 +1,5 @@
 include:
-  - remote: 'https://gitlab.com/peter.saarland/scratch/-/raw/master/ci/templates/default.gitlab-ci.yml'
+  - remote: "https://gitlab.com/peter.saarland/shipmate/-/raw/master/shipmate.gitlab-ci.yml"
 
 build php7:
   stage: build
@@ -27,18 +27,6 @@ build mysql:
     - docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $IMAGE_TAG -f docker/mysql/Dockerfile docker/mysql
     - docker push $IMAGE_TAG
 
-# include:
-#   - template: Container-Scanning.gitlab-ci.yml
-
-# include:
-#   - template: License-Scanning.gitlab-ci.yml
-  
-# include:
-#   - template: Dependency-Scanning.gitlab-ci.yml
-
-# include:
-#   - template: SAST.gitlab-ci.yml
-
 test shopware:
   stage: test
   image: docker/compose
@@ -50,10 +38,10 @@ test shopware:
   script:
     - apk add curl
     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
-    - sleep 120
+    - echo "Waiting for Shopware to come up"
+    - until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do printf '.'; sleep 5; done
     - docker ps -a
     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs --tail 200
-    - curl -fsSL http://localhost:8080
   allow_failure: true
 
 publish php7:
