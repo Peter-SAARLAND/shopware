@@ -27,22 +27,22 @@ build mysql:
     - docker build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $IMAGE_TAG -f docker/mysql/Dockerfile docker/mysql
     - docker push $IMAGE_TAG
 
-test shopware:
-  stage: test
-  image: docker/compose
-  variables:
-    TRAEFIK_DOMAIN: traefik.127.0.0.1.xip.io
-    APP_DOMAINS: shopware.127.0.0.1.xip.io
-  services:
-    - docker:19.03.8-dind
-  script:
-    - apk add curl
-    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
-    - echo "Waiting for Shopware to come up"
-    - until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do printf '.'; sleep 5; done
-    - docker ps -a
-    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs --tail 200
-  allow_failure: true
+# test shopware:
+#   stage: test
+#   image: docker/compose
+#   variables:
+#     TRAEFIK_DOMAIN: traefik.127.0.0.1.xip.io
+#     APP_DOMAINS: shopware.127.0.0.1.xip.io
+#   services:
+#     - docker:19.03.8-dind
+#   script:
+#     - apk add curl
+#     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+#     - echo "Waiting for Shopware to come up"
+#     - until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do printf '.'; sleep 5; done
+#     - docker ps -a
+#     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs --tail 200
+#   allow_failure: true
 
 publish php7:
   stage: ship
