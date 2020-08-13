@@ -50,6 +50,7 @@ services:
 
     shopware-redis:
         image: redis:latest
+        command: redis-server --requirepass shopware
         restart: unless-stopped
         volumes:
             - shopware-redis:/data:Z
