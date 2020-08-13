@@ -49,9 +49,10 @@ services:
     #         - shopware
 
     shopware-redis:
-        image: redis:latest
-        command: redis-server --requirepass shopware
+        image: bitnami/redis:latest
         restart: unless-stopped
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
         volumes:
             - shopware-redis:/data:Z
         networks:
