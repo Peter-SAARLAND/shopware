@@ -6,3 +6,5 @@ RUN apt update \
     netcat-openbsd
 
 ADD shopware.cnf /etc/mysql/conf.d/shopware.cnf
+
+RUN chmod 0444 /etc/mysql/conf.d/shopware.cnf

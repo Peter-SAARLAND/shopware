@@ -13,5 +13,5 @@ query_cache_type=1
 query_cache_limit=16M
 join_buffer_size=256K
 table_open_cache=128
-
+explicit_defaults_for_timestamp = 1
 max_connections=10000
