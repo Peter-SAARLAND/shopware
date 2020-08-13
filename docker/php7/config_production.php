@@ -19,7 +19,7 @@
                     'host' => 'shopware-redis',
                     'port' => 6379,
                     'dbindex' => 0,
-                    'redisAuth' => ''
+                    'redisAuth' => 'shopware'
                 ],
             ],
         ],
