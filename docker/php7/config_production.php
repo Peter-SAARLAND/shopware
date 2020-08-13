@@ -9,7 +9,7 @@
         'username' => 'shopware',
         'password' => 'shopware',
         'dbname' => 'shopware',
-        'timezone' => 'Europe/Berlin',
+        #'timezone' => 'Europe/Berlin',
     ],
     'cache' => [
         'backend' => 'redis', // e.G auto, apcu, xcache
