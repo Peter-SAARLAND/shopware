@@ -52,7 +52,7 @@ services:
         image: bitnami/redis:latest
         restart: unless-stopped
         environment:
-            - ALLOW_EMPTY_PASSWORD=yes
+            - REDIS_PASSWORD=shopware
         volumes:
             - shopware-redis:/data:Z
         networks:

@@ -25,7 +25,6 @@ then
   fi
 fi
 
-
 echo "Setting permissions on shopware data directory"
 chown www-data:www-data /var/www/html -R > /dev/null
 
