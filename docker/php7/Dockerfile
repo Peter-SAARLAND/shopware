@@ -17,6 +17,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) xmlrpc \ 
     && docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr \ 
     && docker-php-ext-install -j$(nproc) gd \ 
+    && docker-php-ext-install -j$(nproc) soap \ 
     && docker-php-ext-install -j$(nproc) opcache \ 
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
