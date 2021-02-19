@@ -5,7 +5,7 @@ ENV COMPOSER_HOME=/usr/local/bin/composer
 ENV WEB_DOCUMENT_ROOT=/var/www/html
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends socat git-all libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev jpegoptim imagemagick optipng pngcrush libjpeg-progs libwebp-dev libjpeg62-turbo-dev libfreetype6-dev dnsutils \
+    && apt-get install -y --no-install-recommends socat git libzip-dev unzip zlib1g-dev libicu-dev g++ libxml2 libxml2-dev libpng-dev jpegoptim imagemagick optipng pngcrush libjpeg-progs libwebp-dev libjpeg62-turbo-dev libfreetype6-dev dnsutils \
     && rm -rf /var/lib/apt/lists/* \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
