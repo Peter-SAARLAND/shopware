@@ -1,5 +1,47 @@
 include:
-  - remote: "https://gitlab.com/peter.saarland/shipmate/-/raw/master/shipmate.gitlab-ci.yml"
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  #DOCKER_TLS_VERIFY: 0
+
+stages:
+  - fetch-version
+  - build
+  - test
+  - release
+
+fetch-semantic-version:
+  image: node:13
+  stage: fetch-version
+  only:
+    refs:
+    - master
+    - alpha
+    - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
+    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
+  script:
+    - make install-deps
+    - npx semantic-release --generate-notes false --dry-run
+  artifacts:
+    paths:
+    - VERSION.txt
+
+generate-non-semantic-version:
+  image: node:13
+  stage: fetch-version
+  except:
+    refs:
+    - master
+    - alpha
+    - /^(([0-9]+)\.)?([0-9]+)\.x/ # This matches maintenance branches
+    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ # This matches pre-releases
+  script:
+    - echo build-$CI_PIPELINE_ID > VERSION.txt
+  artifacts:
+    paths:
+    - VERSION.txt
 
 build php7:
   stage: build
@@ -75,3 +117,22 @@ publish mysql:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: on_success
+
+release:
+  image: node:13
+  stage: release
+  only:
+    refs:
+    - master
+    - alpha
+    # This matches maintenance branches
+    - /^(([0-9]+)\.)?([0-9]+)\.x/
+    # This matches pre-releases
+    - /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/ 
+  script:
+    - touch CHANGELOG.md
+    - make install-deps
+    - make release
+  artifacts:
+    paths:
+    - CHANGELOG.md
